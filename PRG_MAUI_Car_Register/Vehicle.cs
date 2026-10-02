@@ -1,4 +1,7 @@
-﻿namespace PRG_MAUI_Car_Register
+﻿using System.Diagnostics;
+using System.Linq.Expressions;
+
+namespace PRG_MAUI_Car_Register
 {
     class Vehicle
     {
@@ -74,7 +77,30 @@
         public string Manufacturer
         {
             get { return manufacturer; }
-            set { this.manufacturer = value; }
+            set {
+                    if (!String.IsNullOrWhiteSpace(value))
+                    {
+                        for (int i = 0; i < value.Length; i++)
+                        {
+                            if (char.IsLetterOrDigit(value[i]))
+                            {
+                                if (char.IsNumber(value[i]))
+                                {
+                                    throw new ArgumentException("Inget bilföretag har en siffra is sig. Vänligen använd bara bokstäver");
+                                }
+                            }
+                            else
+                            {
+                                throw new ArgumentException("Det kan bara vara Bokstäver, inga special tecken.");
+                            }
+                        }
+                        this.manufacturer = value;
+                    }
+                    else
+                    {
+                        throw new ArgumentException("Du måste fylla i vilket företag har skapat bilen.");
+                    }
+                }
         }
 
         //TODO Lägg till möjligheten att spara realistisk årsmodell, validera, spara och visa i objektet och visas i UI. Tips: Regex.IsMatch()
