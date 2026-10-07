@@ -56,7 +56,41 @@ namespace PRG_MAUI_Car_Register
         public string Model
         {
             get { return model; }
-            set { this.model = value; }
+            set 
+            {
+
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    string yeardate = DateTime.Today.ToString("yyyy");
+                    Regex model = new Regex(@"^[1-2][0-9]{3}$");
+                    Match match = model.Match(value);
+
+                    if (!match.Success)
+                    {
+                        throw new ArgumentException("Vänligen bara siffror för året modelen var gjord, eller ändra årtusende");
+                    }
+
+                    int year = int.Parse(value);
+                    int date = int.Parse(yeardate);
+                    
+                    if (year < 1876)
+                    {
+                        throw new ArgumentException("Första bilen var skapat 1876. Innan det är omöjligt, försök igen.");
+                    }
+
+                    if (year > date)
+                    {
+                        throw new ArgumentException("Det finns igen bil skapat efter dagens år. Efter i år är omöjligt, försök igen.");
+                    }
+
+                }
+                else
+                {
+                    throw new ArgumentException("Du måste skriva in bil modell");
+                }
+
+                this.model = value; 
+            }
         }
 
         //TODO Modell ska valideras, sparas i objektet och visas i UI
