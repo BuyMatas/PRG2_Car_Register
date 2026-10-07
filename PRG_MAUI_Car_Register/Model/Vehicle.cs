@@ -61,7 +61,7 @@ namespace PRG_MAUI_Car_Register
 
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    string yeardate = DateTime.Today.ToString("yyyy");
+                    string yeardate = DateTime.Now.Year.ToString("yyyy");
                     Regex model = new Regex(@"^[1-2][0-9]{3}$");
                     Match match = model.Match(value);
 
