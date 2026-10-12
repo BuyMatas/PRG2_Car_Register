@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace PRG_MAUI_Car_Register
 {
-    class Vehicle
+    public class Vehicle
     {
         // Medlemsvariabler
         public enum Type { Bil, MC, Lastbil };
@@ -16,6 +16,7 @@ namespace PRG_MAUI_Car_Register
         // Konstruktor (en metod med samma namn som klassen, som returnerar ett objekt)
         public Vehicle(Type vehicleType) // en konstruktor kan, men måste inte, ta parametrar
         {
+            if(vehicleType == Type.Bil)
             this.vehicleType = vehicleType;
         }
 
@@ -61,7 +62,7 @@ namespace PRG_MAUI_Car_Register
 
                 if (!String.IsNullOrWhiteSpace(value))
                 {
-                    string yeardate = DateTime.Now.Year.ToString("yyyy");
+                    string yeardate = DateTime.Now.Year.ToString(); 
                     Regex model = new Regex(@"^[1-2][0-9]{3}$");
                     Match match = model.Match(value);
 
